@@ -705,7 +705,7 @@
         function updateVibeText(elementKey, targetDate) {
             const data = ELEMENTS[elementKey];
             const luckyAvoidData = generateLuckyAvoidData(targetDate);
-            const { valueGod = '普通日', lunar = '未知农历' } = luckyAvoidData;
+            const { valueGod = '普通日' } = luckyAvoidData;
             let dateTypeText = '今日';
             if (dateType === 1) dateTypeText = '明日';
             if (dateType === 2) dateTypeText = '后日';
