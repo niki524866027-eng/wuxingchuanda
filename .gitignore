@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# 图片文件（如果不想上传）
+*.jpg
+*.jpeg
+*.png
+*.gif
+
+# 数据文件
+*.txt
+*.csv
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 系统文件
+.DS_Store
+Thumbs.db
+

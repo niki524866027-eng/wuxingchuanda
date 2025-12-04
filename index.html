@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天机 · Cyber Wuxing 女性限定版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-primary: #ff69b4;
+            --neon-secondary: #ffb6c1;
+            --neon-accent: #81a1fa;
+            --ink-black: #0f0a12;
+            --paper-texture: url('https://www.transparenttextures.com/patterns/pearlescent.png');
+            --glass-bg: rgba(30, 20, 40, 0.7);
+            --glass-border: rgba(255, 180, 220, 0.3);
+            --jiayin-color: #d8a8cc;
+        }
+        body {
+            background-color: var(--ink-black);
+            background-image: radial-gradient(circle at 50% 50%, rgba(40, 25, 55, 0.9), #000),var(--paper-texture);
+            color: #f5e6f0;
+            font-family: 'Noto Serif SC', serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        .font-cyber { font-family: 'Orbitron', sans-serif; }
+        .font-seal { font-family: 'Noto Serif SC', serif; font-weight: 700; letter-spacing: 0.08em; }
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 8px rgba(255,100,200,0.2);
+        }
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--ink-black);
+            opacity: 0.8;
+        }
+        .glitch-text::before {
+            left: 1px;
+            text-shadow: -1px 0 var(--neon-primary);
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 4s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            left: -1px;
+            text-shadow: -1px 0 var(--neon-secondary);
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 3.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(10px, 9999px, 30px, 0); }
+            20% { clip: rect(80px, 9999px, 100px, 0); }
+            100% { clip: rect(5px, 9999px, 60px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(60px, 9999px, 80px, 0); }
+            20% { clip: rect(10px, 9999px, 50px, 0); }
+            100% { clip: rect(90px, 9999px, 100px, 0); }
+        }
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(255, 100, 200, 0.2);
+            border-radius: 1.5rem !important;
+            transition: all 0.3s ease;
+        }
+        .card-best { border-top: 2px solid rgba(255,100,200,0.5); }
+        .card-second { border-top: 2px solid rgba(160,200,255,0.5); }
+        .card-worst { border-top: 2px solid rgba(255,100,100,0.3); }
+        .card-lucky { border-top: 2px solid rgba(120,240,180,0.5); }
+        .card-avoid { border-top: 2px solid rgba(255,120,120,0.5); }
+        .ink-smoke {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,220,240,0.05) 0%, transparent 60%);
+            animation: rotate 70s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .holo-grid {
+            background-image: linear-gradient(rgba(255, 100, 200, 0.05) 1px, transparent 1px),linear-gradient(90deg, rgba(255, 100, 200, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            mask-image: radial-gradient(circle, black 40%, transparent 80%);
+        }
+        .glow-Wood { box-shadow: 0 0 30px rgba(120, 240, 180, 0.3); border-color: rgba(120, 240, 180, 0.5); }
+        .glow-Fire { box-shadow: 0 0 30px rgba(255, 160, 200, 0.3); border-color: rgba(255, 160, 200, 0.5); }
+        .glow-Earth { box-shadow: 0 0 30px rgba(255, 220, 160, 0.3); border-color: rgba(255, 220, 160, 0.5); }
+        .glow-Metal { box-shadow: 0 0 30px rgba(220, 230, 255, 0.3); border-color: rgba(220, 230, 255, 0.5); }
+        .glow-Water { box-shadow: 0 0 30px rgba(160, 200, 255, 0.3); border-color: rgba(160, 200, 255, 0.5); }
+        .text-Wood { color: #90ee90; text-shadow: 0 0 8px rgba(120,240,180,0.2); }
+        .text-Fire { color: #ff87b9; text-shadow: 0 0 8px rgba(255,160,200,0.2); }
+        .text-Earth { color: #f9c74f; text-shadow: 0 0 8px rgba(255,220,160,0.2); }
+        .text-Metal { color: #e0f7fa; text-shadow: 0 0 8px rgba(220,230,255,0.2); }
+        .text-Water { color: #81a1fa; text-shadow: 0 0 8px rgba(160,200,255,0.2); }
+        .text-lucky { color: #4ade80; text-shadow: 0 0 8px rgba(120,240,180,0.2); }
+        .text-avoid { color: #f87171; text-shadow: 0 0 8px rgba(255,120,120,0.2); }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23ff69b4' viewBox='0 0 16 16'%3E%3Cpath d='M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z'/%3E%3Cpath d='M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z'/%3E%3C/svg%3E");
+            filter: none;
+            cursor: pointer;
+            scale: 1.2;
+        }
+        input[type="date"] {
+            color: #f5e6f0 !important;
+            font-size: 1.1rem !important;
+            transition: all 0.3s ease;
+        }
+        input[type="date"]:focus {
+            transform: scale(1.02);
+            border-color: rgba(255,100,200,0.8);
+        }
+        .fade-in-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .fade-in-up-1 { animation-delay: 0.3s; }
+        .fade-in-up-2 { animation-delay: 0.4s; }
+        .fade-in-up-3 { animation-delay: 0.5s; }
+        .fade-in-up-4 { animation-delay: 0.6s; }
+        .fade-in-up-5 { animation-delay: 0.7s; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pulse-ring { position: relative; }
+        .pulse-ring::before {
+            content: '';
+            position: absolute;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%; height: 120%;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            animation: ripple 2.5s infinite;
+            opacity: 0;
+        }
+        @keyframes ripple {
+            0% { width: 100%; height: 100%; opacity: 0.6; }
+            100% { width: 160%; height: 160%; opacity: 0; }
+        }
+        .style-tag {
+            background: rgba(255, 180, 220, 0.4);
+            color: #ff69b4;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-left: 4px;
+            font-weight: 600;
+        }
+        .color-dot:hover .swatch {
+            box-shadow: 0 0 12px 2px currentColor !important;
+            transform: scale(1.3);
+            transition: all 0.3s ease;
+        }
+        .swatch { border-radius: 50% !important; transition: all 0.3s ease; }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 36px 0 rgba(255, 100, 200, 0.3);
+        }
+        .lucky-accessory {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 1rem;
+            border-top: 1px dashed var(--glass-border);
+            margin-top: 0.5rem;
+        }
+        .accessory-icon {
+            font-size: 1.8rem;
+            color: var(--neon-primary);
+            background: rgba(255, 180, 220, 0.2);
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        .accessory-icon:hover { transform: rotate(10deg); }
+        .accessory-info h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--neon-primary);
+            margin-bottom: 0.25rem;
+            text-shadow: 0 0 8px rgba(255,100,200,0.2);
+        }
+        .accessory-info p {
+            font-size: 0.875rem;
+            color: #f5e6f0cc;
+        }
+        .music-control {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(255, 100, 200, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .music-control:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 100, 200, 0.4);
+        }
+        .music-icon {
+            font-size: 1.5rem;
+            color: var(--neon-primary);
+        }
+        .date-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .toggle-btn {
+            background: rgba(255,180,220,0.2);
+            border: 1px solid rgba(255,180,220,0.3);
+            color: #f5e6f0;
+            border-radius: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .toggle-btn.active {
+            background: rgba(255,100,200,0.4);
+            border-color: rgba(255,100,200,0.6);
+            color: #fff;
+        }
+        .toggle-btn:hover { background: rgba(255,100,200,0.3); }
+        .footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(255,180,220,0.5);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.1em;
+        }
+        .lucky-avoid-card { padding: 0.8rem 1rem; }
+        .lucky-avoid-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .lucky-avoid-icon { font-size: 1rem; }
+        .lucky-avoid-title {
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Noto Serif SC', serif;
+        }
+        .lucky-avoid-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .lucky-avoid-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 0.5rem;
+            padding: 0.25rem 0.6rem;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+        .lucky-avoid-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-1px);
+        }
+        .jiayin-title {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-align: right;
+            margin-bottom: 0.3rem;
+            color: var(--jiayin-color);
+            opacity: 0.6;
+            transform: scale(1.3, 0.7);
+            text-shadow: 0 0 3px rgba(216,168,204,0.2);
+            animation: faintFloat 6s ease-in-out infinite,faintPulse 4s ease-in-out infinite alternate;
+        }
+        @keyframes faintFloat {
+            0% { transform: scale(1.3, 0.7) translateY(0px); }
+            50% { transform: scale(1.3, 0.7) translateY(-2px); }
+            100% { transform: scale(1.3, 0.7) translateY(0px); }
+        }
+        @keyframes faintPulse {
+            0% { opacity: 0.5; text-shadow: 0 0 2px rgba(216,168,204,0.1); }
+            100% { opacity: 0.7; text-shadow: 0 0 4px rgba(216,168,204,0.3); }
+        }
+        .jiayin-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--jiayin-color), transparent);
+            opacity: 0.3;
+            animation: faintScan 6s ease-in-out infinite;
+        }
+        @keyframes faintScan {
+            0% { transform: scaleX(0); transform-origin: right; }
+            50% { transform: scaleX(1); transform-origin: right; }
+            51% { transform-origin: left; }
+            100% { transform: scaleX(0); transform-origin: left; }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-pink-500/30 selection:text-pink-100">
+    <div class="fixed inset-0 holo-grid pointer-events-none z-0"></div>
+    <div class="ink-smoke z-0"></div>
+    <div class="relative z-10 w-full md:max-w-6xl mx-auto min-h-screen flex flex-col p-6 md:p-12">
+        <header class="flex justify-between items-center mb-8 pt-4 fade-in-up">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-seal glitch-text" data-text="五行穿衣">五行穿衣</h1>
+                <p class="text-xs md:text-sm font-cyber text-pink-300 tracking-widest mt-1">WUXING DAILY GUIDE</p>
+            </div>
+            <div class="flex flex-col items-end">
+                <h2 class="jiayin-title">甲寅·天机</h2>
+                <div class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-pink-400/50 flex items-center justify-center bg-black/30">
+                    <span class="text-xl md:text-2xl text-pink-300">☯</span>
+                </div>
+            </div>
+        </header>
+        <div class="flex flex-col md:grid md:grid-cols-12 md:gap-12 lg:gap-16 items-start">
+            <div class="w-full md:col-span-5 lg:col-span-4 md:sticky md:top-8 space-y-8">
+                <section class="fade-in-up" style="animation-delay: 0.1s;">
+                    <div class="glass-card p-4 flex flex-col transition-all duration-300 hover:bg-white/5 card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <label class="block text-xs text-pink-300/70 font-cyber mb-1">SELECTED DATE</label>
+                                <input type="date" id="dateInput" class="bg-transparent text-xl font-seal focus:outline-none font-bold w-full cursor-pointer">
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs text-pink-300/70 font-cyber">PREDICTION FOR</div>
+                                <div class="text-sm text-pink-400 font-bold" id="dateLabel">TOMORROW</div>
+                            </div>
+                        </div>
+                        <div class="date-toggle">
+                            <button class="toggle-btn" id="todayBtn">今日</button>
+                            <button class="toggle-btn active" id="tomorrowBtn">明日</button>
+                            <button class="toggle-btn" id="dayAfterBtn">后日</button>
+                        </div>
+                    </div>
+                </section>
+                <section id="mainDisplay" class="flex flex-col items-center justify-center fade-in-up" style="animation-delay: 0.2s;">
+                    <div id="elementRing" class="relative w-48 h-48 md:w-72 md:h-72 rounded-full border-2 flex items-center justify-center mb-6 transition-all duration-700 glass-card pulse-ring">
+                        <div class="absolute w-[90%] h-[90%] border border-dashed border-pink-400/30 rounded-full animate-[spin_20s_linear_infinite]"></div>
+                        <div class="absolute w-[110%] h-[110%] border border-dotted border-pink-400/20 rounded-full animate-[spin_30s_linear_reverse_infinite] opacity-30"></div>
+                        <div class="text-center z-10">
+                            <div class="flex items-center justify-center gap-3">
+                                <div id="zodiacIcon" class="text-2xl md:text-3xl text-pink-300"></div>
+                                <div id="dayBranch" class="text-6xl md:text-8xl font-seal mb-1 transition-all"></div>
+                            </div>
+                            <div id="dayElement" class="text-lg md:text-xl font-cyber tracking-widest uppercase opacity-80"></div>
+                            <div id="dayDate" class="text-xs md:text-sm text-pink-300/70 mt-2 font-cyber"></div>
+                        </div>
+                    </div>
+                    <p class="text-pink-300/80 text-sm md:text-lg font-serif italic" id="elementDesc">明日气场｜木属性·生机感｜适配温柔系穿搭</p>
+                </section>
+            </div>
+            <section class="w-full md:col-span-7 lg:col-span-8 flex-1 space-y-4 md:space-y-6 fade-in-up mt-8 md:mt-0">
+                <h2 class="text-xs font-cyber text-pink-300/70 tracking-widest mb-2 border-b border-pink-400/20 pb-2 md:text-sm md:mb-6">SYSTEM RECOMMENDATIONS</h2>
+                
+                <div class="glass-card p-1 relative overflow-hidden group card-hover card-best fade-in-up fade-in-up-1">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-pink-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%]"></div>
+                    <div class="bg-black/40 rounded-lg p-4 md:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 md:w-16 md:h-16 rounded-lg flex items-center justify-center text-2xl bg-gradient-to-br from-pink-900/30 to-black border border-pink-400/30 flex-shrink-0" id="bestIcon">🌸</div>
+                            <div>
+                                <div class="text-xs text-pink-400 font-cyber mb-0.5">PRIORITY LEVEL 1</div>
+                                <h3 class="text-lg md:text-2xl font-bold font-seal">大吉 · 相生</h3>
+                                <p class="text-sm text-pink-100 max-w-xs" id="bestText">五行<b>木</b>生<b>火</b>，温柔氛围感拉满</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-row sm:flex-col items-center sm:items-end gap-3 sm:gap-2 w-full sm:w-auto justify-end border-t sm:border-0 border-pink-400/10 pt-3 sm:pt-0" id="bestColors"></div>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-1 relative overflow-hidden card-hover card-second fade-in-up fade-in-up-2">
+                    <div class="bg-black/40 rounded-lg p-4 md:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 md:w-16 md:h-16 rounded-lg flex items-center justify-center text-xl border border-pink-400/30 text-pink-300 flex-shrink-0">🌿</div>
+                            <div>
+                                <div class="text-xs text-purple-400 font-cyber mb-0.5">PRIORITY LEVEL 2</div>
+                                <h3 class="text-lg md:text-2xl font-bold font-seal text-pink-100">中吉 · 比和</h3>
+                                <p class="text-sm text-pink-100/80 max-w-xs" id="secondText">五行<b>木</b>见<b>木</b>，温柔耐看不踩雷</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-row sm:flex-col items-center sm:items-end gap-3 sm:gap-2 w-full sm:w-auto justify-end border-t sm:border-0 border-pink-400/10 pt-3 sm:pt-0" id="secondColors"></div>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-1 relative overflow-hidden opacity-80 card-hover card-worst fade-in-up fade-in-up-3">
+                    <div class="bg-black/40 rounded-lg p-4 md:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 md:w-16 md:h-16 rounded-lg flex items-center justify-center text-xl border border-pink-400/20 text-pink-400/50 flex-shrink-0">💤</div>
+                            <div>
+                                <div class="text-xs text-red-400/70 font-cyber mb-0.5">AVOID</div>
+                                <h3 class="text-lg md:text-2xl font-bold font-seal text-pink-100/70">不宜 · 受克</h3>
+                                <p class="text-sm text-pink-100/60 max-w-xs" id="worstText">五行<b>木</b>克<b>土</b>，气场稍弱建议避选</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-row sm:flex-col items-center sm:items-end gap-3 sm:gap-2 w-full sm:w-auto justify-end border-t sm:border-0 border-pink-400/10 pt-3 sm:pt-0" id="worstColors"></div>
+                    </div>
+                </div>
+                
+                <div class="glass-card card-hover">
+                    <div class="lucky-accessory">
+                        <div class="accessory-icon" id="accessoryIcon">🎀</div>
+                        <div class="accessory-info">
+                            <h4>今日幸运配饰</h4>
+                            <p id="accessoryDesc">推荐 丝带缠绕发夹，清冷感拉满，适配日常通勤与约会场景</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 fade-in-up fade-in-up-4">
+                    <div class="glass-card card-hover card-lucky">
+                        <div class="lucky-avoid-card">
+                            <div class="lucky-avoid-header">
+                                <span class="lucky-avoid-icon text-lucky">✅</span>
+                                <h3 class="lucky-avoid-title text-lucky" id="luckyTitle">宜</h3>
+                            </div>
+                            <div class="lucky-avoid-list" id="luckyList">
+                                <div class="lucky-avoid-item">祭祀</div>
+                                <div class="lucky-avoid-item">理发</div>
+                                <div class="lucky-avoid-item">针灸</div>
+                                <div class="lucky-avoid-item">解除</div>
+                                <div class="lucky-avoid-item">进人口</div>
+                                <div class="lucky-avoid-item">整手足甲</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card card-hover card-avoid">
+                        <div class="lucky-avoid-card">
+                            <div class="lucky-avoid-header">
+                                <span class="lucky-avoid-icon text-avoid">❌</span>
+                                <h3 class="lucky-avoid-title text-avoid" id="avoidTitle">忌</h3>
+                            </div>
+                            <div class="lucky-avoid-list" id="avoidList">
+                                <div class="lucky-avoid-item">嫁娶</div>
+                                <div class="lucky-avoid-item">动土</div>
+                                <div class="lucky-avoid-item">出行</div>
+                                <div class="lucky-avoid-item">修造</div>
+                                <div class="lucky-avoid-item">入宅</div>
+                                <div class="lucky-avoid-item">安葬</div>
+                                <div class="lucky-avoid-item">开市</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer">© 2025 CYBER WUXING · 赛博五行穿衣指南</div>
+            </section>
+        </div>
+    </div>
+    
+    <div class="music-control" id="musicToggle">
+        <span class="music-icon" id="musicIcon">▶️</span>
+    </div>
+    
+    <audio id="backgroundMusic" loop preload="auto" volume="0.2">
+        <source src="https://music.163.com/song/media/outer/url?id=2088319187.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放
+    </audio>
+
+    <script>
+        const BRANCHES = [
+            { char: '子', name: 'Zi', animal: 'Rat', element: 'Water', zodiac: '鼠', icon: '🐭' },
+            { char: '丑', name: 'Chou', animal: 'Ox', element: 'Earth', zodiac: '牛', icon: '🐂' },
+            { char: '寅', name: 'Yin', animal: 'Tiger', element: 'Wood', zodiac: '虎', icon: '🐯' },
+            { char: '卯', name: 'Mao', animal: 'Rabbit', element: 'Wood', zodiac: '兔', icon: '🐰' },
+            { char: '辰', name: 'Chen', animal: 'Dragon', element: 'Earth', zodiac: '龙', icon: '🐲' },
+            { char: '巳', name: 'Si', animal: 'Snake', element: 'Fire', zodiac: '蛇', icon: '🐍' },
+            { char: '午', name: 'Wu', animal: 'Horse', element: 'Fire', zodiac: '马', icon: '🐴' },
+            { char: '未', name: 'Wei', animal: 'Goat', element: 'Earth', zodiac: '羊', icon: '🐑' },
+            { char: '申', name: 'Shen', animal: 'Monkey', element: 'Metal', zodiac: '猴', icon: '🐒' },
+            { char: '酉', name: 'You', animal: 'Rooster', element: 'Metal', zodiac: '鸡', icon: '🐔' },
+            { char: '戌', name: 'Xu', animal: 'Dog', element: 'Earth', zodiac: '狗', icon: '🐶' },
+            { char: '亥', name: 'Hai', animal: 'Pig', element: 'Water', zodiac: '猪', icon: '🐷' }
+        ];
+        const ELEMENTS = {
+            'Wood': { 
+                name: '木', colorCode: '#90ee90', class: 'text-Wood', 
+                colors: ['Green', 'Cyan', 'Emerald'], colorsZh: ['青', '绿', '翠'],
+                generates: 'Fire', conquers: 'Earth', tag: '显白',
+                accessory: '木质花朵耳饰', accessoryIcon: '🌸',
+                vibe: '生机感', style: '温柔系'
+            },
+            'Fire': { 
+                name: '火', colorCode: '#ff87b9', class: 'text-Fire', 
+                colors: ['Red', 'Purple', 'Pink'], colorsZh: ['红', '紫', '粉'],
+                generates: 'Earth', conquers: 'Metal', tag: '温柔',
+                accessory: '珍珠锁骨链', accessoryIcon: '🔮',
+                vibe: '热烈感', style: '元气系'
+            },
+            'Earth': { 
+                name: '土', colorCode: '#f9c74f', class: 'text-Earth', 
+                colors: ['Yellow', 'Brown', 'Beige'], colorsZh: ['黄', '咖', '褐'],
+                generates: 'Metal', conquers: 'Water', tag: '气质',
+                accessory: '布艺蝴蝶结发圈', accessoryIcon: '🧶',
+                vibe: '稳重感', style: '优雅系'
+            },
+            'Metal': { 
+                name: '金', colorCode: '#e0f7fa', class: 'text-Metal', 
+                colors: ['White', 'Gold', 'Silver'], colorsZh: ['白', '金', '银'],
+                generates: 'Water', conquers: 'Wood', tag: '高级',
+                accessory: '细闪银质手链', accessoryIcon: '⌚',
+                vibe: '冷冽感', style: '御姐系'
+            },
+            'Water': { 
+                name: '水', colorCode: '#81a1fa', class: 'text-Water', 
+                colors: ['Black', 'Blue', 'Navy'], colorsZh: ['黑', '蓝', '深灰'],
+                generates: 'Wood', conquers: 'Fire', tag: '清冷',
+                accessory: '丝带缠绕发夹', accessoryIcon: '🎀',
+                vibe: '静谧感', style: '清冷系'
+            }
+        };
+        let dateType = 1;
+
+        function getBranchIndex(date) {
+            const baseDate = new Date(1900, 0, 1);
+            const utc1 = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+            const utc2 = Date.UTC(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate());
+            const msPerDay = 1000 * 60 * 60 * 24;
+            const daysDiff = Math.floor((utc1 - utc2) / msPerDay);
+            let index = (10 + daysDiff) % 12;
+            if (index < 0) index += 12;
+            return index;
+        }
+
+        function renderColorDots(elementKey, containerId, isGlitch = false) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            const data = ELEMENTS[elementKey];
+            data.colorsZh.forEach((colorName, idx) => {
+                const dot = document.createElement('div');
+                dot.className = `flex items-center gap-2 color-dot`;
+                let bgStyle = '';
+                if (elementKey === 'Wood') bgStyle = 'bg-green-300 box-shadow: 0 0 10px #90ee90';
+                if (elementKey === 'Fire') bgStyle = 'bg-pink-400 box-shadow: 0 0 10px #ff87b9';
+                if (elementKey === 'Earth') bgStyle = 'bg-yellow-300 box-shadow: 0 0 10px #f9c74f';
+                if (elementKey === 'Metal') bgStyle = 'bg-blue-50 box-shadow: 0 0 10px #e0f7fa';
+                if (elementKey === 'Water') bgStyle = 'bg-blue-400 box-shadow: 0 0 10px #81a1fa';
+                const swatch = document.createElement('div');
+                swatch.className = `w-3 h-3 ${bgStyle.split(' ')[0]} swatch`;
+                swatch.style.boxShadow = bgStyle.split('box-shadow: ')[1];
+                swatch.style.color = data.colorCode;
+                const label = document.createElement('span');
+                label.className = `text-xs font-seal ${isGlitch ? 'text-gray-400 line-through' : 'text-pink-100'}`;
+                label.innerText = colorName;
+                const tag = document.createElement('span');
+                tag.className = `style-tag`;
+                tag.innerText = data.tag;
+                dot.appendChild(label);
+                dot.appendChild(swatch);
+                dot.appendChild(tag);
+                container.appendChild(dot);
+            });
+        }
+
+        function updateLuckyAccessory(elementKey) {
+            const data = ELEMENTS[elementKey];
+            document.getElementById('accessoryIcon').innerText = data.accessoryIcon;
+            document.getElementById('accessoryDesc').innerText = `推荐 ${data.accessory}，${data.tag}感拉满，适配日常通勤与约会场景`;
+        }
+
+        // 农历算法核心函数
+        class LunarCalendar {
+            constructor() {
+                this.lunarInfo = [
+                    0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
+                    0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
+                    0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970,
+                    0x06566, 0x0d4a0, 0x0ea50, 0x16a95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950,
+                    0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557,
+                    0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5b0, 0x14573, 0x052b0, 0x0a9a8, 0x0e950, 0x06aa0,
+                    0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0,
+                    0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b5a0, 0x195a6,
+                    0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570,
+                    0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x05ac0, 0x0ab60, 0x096d5, 0x092e0,
+                    0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5,
+                    0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930,
+                    0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65, 0x0d530,
+                    0x05aa0, 0x076a3, 0x096d0, 0x04bd7, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45,
+                    0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0
+                ];
+                this.monthName = ['正', '二', '三', '四', '五', '六', '七', '八', '九', '十', '冬', '腊'];
+                this.dayName = ['初一', '初二', '初三', '初四', '初五', '初六', '初七', '初八', '初九', '初十',
+                               '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十',
+                               '廿一', '廿二', '廿三', '廿四', '廿五', '廿六', '廿七', '廿八', '廿九', '三十'];
+            }
+            
+            solarToLunar(date) {
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                
+                const baseDate = new Date(1900, 0, 31);
+                const solarDays = Math.floor((date - baseDate) / 86400000);
+                
+                let leapMonth = -1;
+                let i = 1900;
+                while (i < 2100 && solarDays > 0) {
+                    const yearDays = this.getYearDays(i);
+                    if (solarDays >= yearDays) {
+                        solarDays -= yearDays;
+                        i++;
+                    } else {
+                        break;
+                    }
+                }
+                
+                const lunarYear = i;
+                let j = 0;
+                while (j < 12 && solarDays > 0) {
+                    let monthDays;
+                    if (this.isLeapYear(lunarYear)) {
+                        leapMonth = this.getLeapMonth(lunarYear);
+                        if (j + 1 === leapMonth + 1) {
+                            monthDays = this.getLeapDays(lunarYear);
+                        } else {
+                            monthDays = this.getMonthDays(lunarYear, j);
+                        }
+                    } else {
+                        monthDays = this.getMonthDays(lunarYear, j);
+                    }
+                    
+                    if (solarDays > monthDays) {
+                        solarDays -= monthDays;
+                        j++;
+                    } else {
+                        break;
+                    }
+                }
+                
+                const lunarMonth = j + 1;
+                const lunarDay = solarDays + 1;
+                
+                return {
+                    year: lunarYear,
+                    month: lunarMonth,
+                    day: lunarDay,
+                    isLeap: leapMonth > 0 && j + 1 === leapMonth + 1
+                };
+            }
+            
+            getYearDays(year) {
+                let days = 0;
+                for (let i = 0; i < 12; i++) {
+                    days += this.getMonthDays(year, i);
+                }
+                if (this.isLeapYear(year)) {
+                    days += this.getLeapDays(year);
+                }
+                return days;
+            }
+            
+            getMonthDays(year, month) {
+                const code = this.lunarInfo[year - 1900];
+                return (code & (0x10000 >> month)) ? 30 : 29;
+            }
+            
+            isLeapYear(year) {
+                return (this.lunarInfo[year - 1900] & 0x0010) !== 0;
+            }
+            
+            getLeapMonth(year) {
+                return this.lunarInfo[year - 1900] & 0x000f;
+            }
+            
+            getLeapDays(year) {
+                return (this.lunarInfo[year - 1900] & 0x8000) ? 30 : 29;
+            }
+            
+            formatLunar(date) {
+                const lunar = this.solarToLunar(date);
+                const monthStr = lunar.isLeap ? `闰${this.monthName[lunar.month - 1]}` : this.monthName[lunar.month - 1];
+                return `${monthStr}月${this.dayName[lunar.day - 1]}`;
+            }
+        }
+        
+        // 宜忌计算类
+        class LuckyAvoidCalculator {
+            constructor() {
+                this.luckyItems = ['祭祀', '祈福', '求嗣', '开光', '解除', '出行', '嫁娶', '纳采', '入宅', '移徙',
+                                  '安床', '修造', '动土', '竖柱', '上梁', '开市', '交易', '立券', '纳财', '裁衣',
+                                  '冠笄', '伐木', '作梁', '出火', '拆卸', '进人口', '挂匾', '安香', '造庙', '塑绘',
+                                  '斋醮', '沐浴', '理发', '整手足甲', '纳畜', '牧养', '破土', '安葬', '启钻', '入殓',
+                                  '除服', '成服', '移柩', '谢土', '造畜稠', '开池', '掘井', '开仓', '造车器', '塞穴',
+                                  '平治道涂', '修坟', '立碑'];
+                this.avoidItems = ['嫁娶', '纳采', '订盟', '开市', '交易', '立券', '挂匾', '纳财', '入宅', '移徙',
+                                  '安床', '栽种', '安葬', '修坟', '破土', '动土', '解除', '伐木', '作梁', '出火',
+                                  '拆卸', '修造', '入殓', '除服', '成服', '移柩', '谢土', '开光', '出行', '祈福',
+                                  '求嗣', '上梁', '竖柱', '安门', '会亲友', '祭祀', '塑绘', '斋醮', '沐浴', '理发',
+                                  '整手足甲', '冠笄', '嫁娶', '纳采', '裁衣', '动土', '起基', '安门', '移徙', '入宅',
+                                  '开市', '交易', '立券', '纳财', '牧养', '畜稠', '启钻', '安葬', '谢土', '修坟', '立碑'];
+                this.valueGods = ['青龙', '明堂', '天刑', '朱雀', '金匮', '天德', '白虎', '玉堂', '天牢', '玄武', '司命', '勾陈'];
+            }
+            
+            calculate(date) {
+                const branchIdx = getBranchIndex(date);
+                const branch = BRANCHES[branchIdx];
+                const element = branch.element;
+                
+                // 根据日干支计算值神
+                const dayDiff = Math.floor((date - new Date(1900, 0, 1)) / 86400000);
+                const godIdx = (dayDiff + 6) % 12;
+                const valueGod = this.valueGods[godIdx];
+                const isGoodDay = [0, 1, 4, 5, 7, 10].includes(godIdx);
+                const godDesc = isGoodDay ? `${valueGod}（黄道吉日）` : `${valueGod}（黑道凶日）`;
+                
+                // 根据日干支和元素计算宜忌
+                let lucky = [];
+                let avoid = [];
+                
+                // 基础宜忌规则
+                const rules = {
+                    'Wood': { lucky: [0, 3, 5, 8, 11, 14, 17, 20, 23, 26], avoid: [1, 4, 7, 10, 13, 16, 19, 22, 25, 28] },
+                    'Fire': { lucky: [1, 4, 6, 9, 12, 15, 18, 21, 24, 27], avoid: [0, 3, 7, 10, 13, 16, 19, 22, 25, 28] },
+                    'Earth': { lucky: [2, 5, 7, 10, 13, 16, 19, 22, 25, 28], avoid: [1, 4, 6, 9, 12, 15, 18, 21, 24, 27] },
+                    'Metal': { lucky: [3, 6, 8, 11, 14, 17, 20, 23, 26, 29], avoid: [0, 2, 5, 7, 10, 13, 16, 19, 22, 25] },
+                    'Water': { lucky: [4, 7, 9, 12, 15, 18, 21, 24, 27, 30], avoid: [1, 3, 6, 8, 11, 14, 17, 20, 23, 26] }
+                };
+                
+                const rule = rules[element] || rules['Wood'];
+                
+                // 随机选择宜忌项（基于规则索引）
+                lucky = rule.lucky.map(idx => this.luckyItems[idx % this.luckyItems.length]);
+                avoid = rule.avoid.map(idx => this.avoidItems[idx % this.avoidItems.length]);
+                
+                // 去重
+                lucky = [...new Set(lucky)];
+                avoid = [...new Set(avoid)];
+                
+                return {
+                    lucky: lucky.slice(0, 6),
+                    avoid: avoid.slice(0, 7),
+                    valueGod: godDesc
+                };
+            }
+        }
+        
+        // 初始化计算器
+        const lunarCalendar = new LunarCalendar();
+        const luckyAvoidCalculator = new LuckyAvoidCalculator();
+        
+        function updateVibeText(elementKey, targetDate) {
+            const data = ELEMENTS[elementKey];
+            const lunar = lunarCalendar.formatLunar(targetDate);
+            const { valueGod } = luckyAvoidCalculator.calculate(targetDate);
+            let dateTypeText = '今日';
+            if (dateType === 1) dateTypeText = '明日';
+            if (dateType === 2) dateTypeText = '后日';
+            document.getElementById('elementDesc').innerText = `${dateTypeText}气场｜${lunar}｜${valueGod}｜${elementKey}属性·${data.vibe}｜适配${data.style}穿搭`;
+        }
+
+        function updateLuckyAvoid(targetDate) {
+            const { lucky = ['无特殊宜办事项'], avoid = ['无特殊忌办事项'] } = luckyAvoidCalculator.calculate(targetDate);
+            const coreAvoidItems = ['嫁娶', '动土', '出行', '修造', '入宅', '安葬', '开市', '破土', '作灶', '移徙'];
+            const simplifiedAvoid = avoid.filter(item => coreAvoidItems.includes(item)).slice(0,7);
+            const luckyList = document.getElementById('luckyList');
+            const avoidList = document.getElementById('avoidList');
+            
+            luckyList.innerHTML = '';
+            lucky.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'lucky-avoid-item';
+                el.innerText = item;
+                luckyList.appendChild(el);
+            });
+            
+            avoidList.innerHTML = '';
+            simplifiedAvoid.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'lucky-avoid-item';
+                el.innerText = item;
+                avoidList.appendChild(el);
+            });
+        }
+
+        function updateUI() {
+            const input = document.getElementById('dateInput');
+            const selectedDate = new Date(input.value);
+            const targetDate = new Date(selectedDate);
+            if (dateType === 1) targetDate.setDate(selectedDate.getDate() + 1);
+            if (dateType === 2) targetDate.setDate(selectedDate.getDate() + 2);
+            
+            const branchIdx = getBranchIndex(targetDate);
+            const branchInfo = BRANCHES[branchIdx];
+            const dayElementKey = branchInfo.element;
+            const dayElementData = ELEMENTS[dayElementKey];
+            const ring = document.getElementById('elementRing');
+            const dayBranchEl = document.getElementById('dayBranch');
+            const dayElementEl = document.getElementById('dayElement');
+            const dayDateEl = document.getElementById('dayDate');
+            const zodiacIcon = document.getElementById('zodiacIcon');
+            const dateLabel = document.getElementById('dateLabel');
+            
+            dateLabel.innerText = dateType === 0 ? 'TODAY' : dateType === 1 ? 'TOMORROW' : 'DAY AFTER';
+            zodiacIcon.innerText = branchInfo.icon;
+            ring.className = `relative w-48 h-48 md:w-72 md:h-72 rounded-full border-2 flex items-center justify-center mb-6 transition-all duration-700 glass-card pulse-ring glow-${dayElementKey}`;
+            dayBranchEl.innerText = branchInfo.char;
+            dayBranchEl.className = `text-6xl md:text-8xl font-seal mb-1 text-${dayElementKey}`;
+            dayElementEl.innerText = `${dayElementData.name} - ${dayElementKey.toUpperCase()}`;
+            dayElementEl.className = `text-lg md:text-xl font-cyber tracking-widest uppercase opacity-80 text-${dayElementKey}`;
+            const month = targetDate.getMonth() + 1;
+            const day = targetDate.getDate();
+            dayDateEl.innerText = `${targetDate.getFullYear()} / ${month.toString().padStart(2,'0')} / ${day.toString().padStart(2,'0')}`;
+            
+            updateVibeText(dayElementKey, targetDate);
+            updateLuckyAvoid(targetDate);
+            const bestElementKey = dayElementData.generates;
+            const secondElementKey = dayElementKey;
+            const worstElementKey = dayElementData.conquers;
+            
+            document.getElementById('bestText').innerHTML = `五行<b>${dayElementData.name}</b>生<b>${ELEMENTS[bestElementKey].name}</b>，${ELEMENTS[bestElementKey].tag}氛围感拉满`;
+            renderColorDots(bestElementKey, 'bestColors');
+            const bestIcon = document.getElementById('bestIcon');
+            bestIcon.className = bestIcon.className.replace(/text-\w+/, '');
+            bestIcon.classList.add(`text-${bestElementKey}`);
+            
+            document.getElementById('secondText').innerHTML = `五行<b>${dayElementData.name}</b>见<b>${ELEMENTS[secondElementKey].name}</b>，温柔耐看不踩雷`;
+            renderColorDots(secondElementKey, 'secondColors');
+            
+            document.getElementById('worstText').innerHTML = `五行<b>${dayElementData.name}</b>克<b>${ELEMENTS[worstElementKey].name}</b>，气场稍弱建议避选`;
+            renderColorDots(worstElementKey, 'worstColors', true);
+            updateLuckyAccessory(dayElementKey);
+        }
+
+        function initDateToggle() {
+            const todayBtn = document.getElementById('todayBtn');
+            const tomorrowBtn = document.getElementById('tomorrowBtn');
+            const dayAfterBtn = document.getElementById('dayAfterBtn');
+            const btns = [todayBtn, tomorrowBtn, dayAfterBtn];
+            
+            todayBtn.addEventListener('click', () => {
+                dateType = 0;
+                updateBtnStatus();
+                updateUI();
+            });
+            
+            tomorrowBtn.addEventListener('click', () => {
+                dateType = 1;
+                updateBtnStatus();
+                updateUI();
+            });
+            
+            dayAfterBtn.addEventListener('click', () => {
+                dateType = 2;
+                updateBtnStatus();
+                updateUI();
+            });
+            
+            function updateBtnStatus() {
+                btns.forEach((btn, idx) => {
+                    if (idx === dateType) btn.classList.add('active');
+                    else btn.classList.remove('active');
+                });
+            }
+        }
+
+        function initMusicControl() {
+            const music = document.getElementById('backgroundMusic');
+            const musicToggle = document.getElementById('musicToggle');
+            const musicIcon = document.getElementById('musicIcon');
+            let isPlaying = false;
+            let isActivated = false;
+            music.volume = 0.2;
+            
+            document.addEventListener('click', () => {
+                if (!isActivated) {
+                    music.play().catch(err => {});
+                    isActivated = true;
+                    isPlaying = true;
+                    musicIcon.innerText = '⏸️';
+                }
+            }, { once: true });
+            
+            musicToggle.addEventListener('click', () => {
+                if (!isActivated) {
+                    music.play().catch(err => {
+                        alert('音乐激活失败，请刷新页面后点击页面任意位置重试～');
+                    });
+                    isActivated = true;
+                    isPlaying = true;
+                    musicIcon.innerText = '⏸️';
+                } else {
+                    if (isPlaying) {
+                        music.pause();
+                        musicIcon.innerText = '▶️';
+                    } else {
+                        music.play();
+                        musicIcon.innerText = '⏸️';
+                    }
+                    isPlaying = !isPlaying;
+                }
+            });
+            
+            music.addEventListener('ended', () => {
+                if (isActivated && isPlaying) {
+                    music.play();
+                    musicIcon.innerText = '⏸️';
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.getElementById('dateInput');
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2,'0');
+            const dd = String(today.getDate()).padStart(2,'0');
+            dateInput.value = `${yyyy}-${mm}-${dd}`;
+            
+            initDateToggle();
+            initMusicControl();
+            updateUI();
+            
+            dateInput.addEventListener('change', updateUI);
+        });
+    </script>
+</body>
+</html>
